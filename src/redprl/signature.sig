@@ -29,6 +29,22 @@ sig
   val extract : Lcf.jdg Lcf.state -> abt
 end
 
+(* Signatures are the central structure in a redprl development: a file defines
+ * a signature and the process of checking a proof is equivalent to simply
+ * checking a signature.
+ *
+ * A signature is best thought of as a telescope of declarations
+ * interspersed with commands. Accordingly, the main operations on a signature
+ * are to add new declarations or commands or look up a previously entered item.
+ *
+ * There is also a massive [check] function which can be used to check the
+ * validity of the entire signature. The overall execution of RedPRL may be
+ * summarized as
+ *
+ *  - Parse the incoming signature from the file.
+ *  - Loop over it and gradually insert it into the "main signature".
+ *  - Run check on the signature to ensure that it is well-formed.
+ *)
 signature SIGNATURE =
 sig
   type ast = RedPrlAst.ast
