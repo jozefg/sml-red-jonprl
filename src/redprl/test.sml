@@ -1,6 +1,7 @@
-structure Test =
-struct
-
+(* This file exists because Jon is unclear on how to write
+ * tests. We're not quite sure how he survived in industry.
+ *)
+structure Test = struct
   fun stringreader s =
     let
       val pos = ref 0
