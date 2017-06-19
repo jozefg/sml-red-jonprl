@@ -1,3 +1,10 @@
+(* The sml-dependent-lcf library provides built in support for
+ * constructing an LCF-style tactic system over a language with
+ * terms built from ABTs. See the library for details on this.
+ *
+ * The main take-away is that each of judgment binds a series of
+ * metavariables and symbols.
+ *)
 structure LcfLanguage = LcfAbtLanguage (RedPrlAbt)
 
 structure Lcf :
@@ -11,11 +18,13 @@ struct
   open Def Lcf
   infix |> ||
 
-
+  (* The rest of the structure is simply utility functions to help with
+   * pretty printing.
+   *)
   val prettySyms =
     PP.text o ListSpine.pretty (fn (u, sigma) => Sym.toString u ^ " : " ^ RedPrlAbt.O.Ar.Vl.PS.toString sigma) ", "
 
-  val prettyVars = 
+  val prettyVars =
     PP.text o ListSpine.pretty (fn (x, tau) => Var.toString x ^ " : " ^ RedPrlAbt.O.Ar.Vl.S.toString tau) ", "
 
   fun prettyGoal (x, jdg) =
@@ -25,7 +34,6 @@ struct
         PP.text ".",
         PP.nest 2 (PP.concat [PP.line, RedPrlSequent.pretty TermPrinter.toString jdg]),
         PP.line]
-
 
   val prettyGoals : jdg eff Tl.telescope -> {doc : PP.doc, env : J.env, idx : int} =
     let

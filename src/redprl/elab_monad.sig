@@ -1,3 +1,11 @@
+(* The elaboration monad contains the context and utilities necessary to
+ * perform elaboration. This includes various wrappers for printing out
+ * warnings during the course of elaboration as well as the ability to
+ * silence messages in an elaboration subcomputation.
+ *
+ * This monad is best throught of as lazily building up a computation which
+ * generates various messages before finally resulting in
+ *)
 signature ELAB_MONAD =
 sig
   include MONAD_UTIL
